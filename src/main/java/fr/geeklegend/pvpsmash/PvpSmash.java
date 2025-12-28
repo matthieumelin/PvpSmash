@@ -1,6 +1,9 @@
 package fr.geeklegend.pvpsmash;
 
-import fr.geeklegend.pvpsmash.player.PlayerDataManager;
+import fr.geeklegend.pvpsmash.game.GameManager;
+import fr.geeklegend.pvpsmash.player.PlayerManager;
+import fr.geeklegend.pvpsmash.scheduler.SchedulerManager;
+import fr.geeklegend.pvpsmash.scoreboard.ScoreboardManager;
 import fr.geeklegend.pvpsmash.world.WorldManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,7 +12,10 @@ public class PvpSmash extends JavaPlugin {
   private static PvpSmash instance;
 
   private WorldManager worldManager;
-  private PlayerDataManager playerDataManager;
+  private PlayerManager playerManager;
+  private ScoreboardManager scoreboardManager;
+  private SchedulerManager schedulerManager;
+  private GameManager gameManager;
 
   @Override
   public void onEnable() {
@@ -20,22 +26,30 @@ public class PvpSmash extends JavaPlugin {
     worldManager = new WorldManager(this);
     worldManager.onEnable();
 
-    playerDataManager = new PlayerDataManager();
-    playerDataManager.onEnable();
+    playerManager = new PlayerManager();
+    playerManager.onEnable();
 
-    System.out.println("PvpSmash plugin enabled!");
+    scoreboardManager = new ScoreboardManager();
+    scoreboardManager.onEnable();
+
+    schedulerManager = new SchedulerManager();
+    schedulerManager.onEnable();
+
+    gameManager = new GameManager();
+    gameManager.onEnable();
   }
 
   @Override
   public void onDisable() {
-    playerDataManager.onDisable();
+    gameManager.onDisable();
+    schedulerManager.onDisable();
+    scoreboardManager.onDisable();
+    playerManager.onDisable();
     worldManager.onDisable();
 
     saveConfig();
 
     instance = null;
-
-    System.out.println("PvpSmash plugin disabled!");
   }
 
   public static PvpSmash getInstance() {
@@ -46,7 +60,19 @@ public class PvpSmash extends JavaPlugin {
     return worldManager;
   }
 
-  public PlayerDataManager getPlayerDataManager() {
-    return playerDataManager;
+  public PlayerManager getPlayerDataManager() {
+    return playerManager;
+  }
+
+  public ScoreboardManager getScoreboardManager() {
+    return scoreboardManager;
+  }
+
+  public SchedulerManager getSchedulerManager() {
+    return schedulerManager;
+  }
+
+  public GameManager getGameManager() {
+    return gameManager;
   }
 }

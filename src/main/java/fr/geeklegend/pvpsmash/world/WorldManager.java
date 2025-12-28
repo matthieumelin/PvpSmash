@@ -16,18 +16,18 @@ public class WorldManager implements IManager {
 
   public WorldManager(PvpSmash instance) {
     this.instance = instance;
-    this.world = instance.getServer().getWorld(instance.getConfig().getString("lobby.world"));
+    this.world = instance.getServer().getWorld(instance.getConfig().getString("lobby.spawn.world"));
   }
 
   @Override
   public void onEnable() {
     world.setSpawnLocation(new Location(
-            world,
-            instance.getConfig().getDouble("lobby.x"),
-            instance.getConfig().getDouble("lobby.y"),
-            instance.getConfig().getDouble("lobby.z"),
-            (float) instance.getConfig().getDouble("lobby.yaw"),
-            (float) instance.getConfig().getDouble("lobby.pitch")));
+        world,
+        instance.getConfig().getDouble("lobby.spawn.x"),
+        instance.getConfig().getDouble("lobby.spawn.y"),
+        instance.getConfig().getDouble("lobby.spawn.z"),
+        (float) instance.getConfig().getDouble("lobby.spawn.yaw"),
+        (float) instance.getConfig().getDouble("lobby.spawn.pitch")));
 
     setup();
     registerListeners();
@@ -54,9 +54,10 @@ public class WorldManager implements IManager {
     world.setThundering(false);
     world.setThunderDuration(0);
     world.setWeatherDuration(0);
+    world.setGameRuleValue("doDaylightCycle", "false");
 
     world.getEntities().stream().filter(entity -> entity.getType() != EntityType.PLAYER)
-            .forEach(Entity::remove);
+        .forEach(Entity::remove);
 
     instance.getServer().getConsoleSender().sendMessage("§a[PvPSmash] Le monde du lobby a été chargé avec succès !");
   }
