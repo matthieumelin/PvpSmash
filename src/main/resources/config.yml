@@ -1,5 +1,7 @@
 messages:
   prefix: "&6[PvpSmash]"
+  join: "%prefix% &a+ &e%player_name% s'est connecté. &a(%online_players%/%max_players%)"
+  quit: "%prefix% &c- &e%player_name% s'est déconnecté. &a(%online_players%/%max_players%)"
 
 lobby:
   world: "world"
