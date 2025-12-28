@@ -1,0 +1,11 @@
+messages:
+  prefix: "&6[PvpSmash]"
+
+lobby:
+  world: "world"
+  spawn:
+    x: 0.5
+    y: 100
+    z: 0.5
+    yaw: 0.0
+    pitch: 0.0
